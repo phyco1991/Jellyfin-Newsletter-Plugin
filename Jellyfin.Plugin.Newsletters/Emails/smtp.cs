@@ -49,6 +49,7 @@ public class Smtp : ControllerBase
             mail = new MailMessage();
 
             mail.From = new MailAddress(config.FromAddr);
+            mail.ReplyToList = new MailAdddress(config.FromAddr);
             mail.To.Clear();
             mail.Subject = "Jellyfin Newsletters - Test";
             mail.Body = "Success! You have properly configured your email notification settings";
@@ -105,6 +106,7 @@ public class Smtp : ControllerBase
                 builtString = builtString.Replace("{Date}", currDate, StringComparison.Ordinal);
 
                 mail.From = new MailAddress(emailFromAddress, emailFromAddress);
+                mail.ReplyToList = new MailAddress(emailFromAddress, emailFromAddress);
                 mail.To.Clear();
                 mail.Subject = subject;
                 mail.Body = Regex.Replace(builtString, "{[A-za-z]*}", " "); // Final cleanup
